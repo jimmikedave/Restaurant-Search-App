@@ -1,33 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import SearchBar from '../components/SearchBar';
-import yelp from '../api/yelp';
+import useResults from '../hooks/useResults';
+
+//useState(() => {}, [x]) - run the arrow function x amount of times
+//useState(() => {}, [value]) - when the value changes run the arrow function
 
 const SearchScreen = () => {
     const [term, setTerm] = useState('');
-    const [results, setResults] = useState([]);
-    const [error, setError] = useState('');
-
-    // helper function
-    const searchApi = async (searchTerm) => {
-        // param ex. limit: 50 => /search?limit=50
-        try{
-            const response = await yelp.get('/search', {
-                params: {
-                    term: searchTerm,
-                    location: 'brooklyn',
-                    limit: 50 
-                }
-            });
-            setResults(response.data.businesses)
-        } catch (err) {
-            setError('Something went wrong')
-        }
-    };
-
-    // Call searchApi when component is first rendered **BAD CODE**
-    // searchApi('pasta')
-    // this will cause an infinite re-render
+    // hook is a helper function that can be used inside other components
+    // REACT IS ALL ABOUT RE-USABLE COMPONENTS
+    const [searchApi, results, error] = useResults();
+    
 
     return (
         <View>
