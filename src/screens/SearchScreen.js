@@ -7,7 +7,7 @@ import ResultsList from '../components/ResultsList';
 //useState(() => {}, [x]) - run the arrow function x amount of times
 //useState(() => {}, [value]) - when the value changes run the arrow function
 
-const SearchScreen = () => {
+const SearchScreen = ({ navigation }) => {
     const [term, setTerm] = useState('');
     // hook is a helper function that can be used inside other components
     // REACT IS ALL ABOUT RE-USABLE COMPONENTS
@@ -21,20 +21,23 @@ const SearchScreen = () => {
     };
 
     return (
-        <View style={{flex: 1}}>
+        <> 
+        {/* this is the default syntax <> to fit everything onto the screen */}
+        {/**The alternative is to use <View style={{flex: 1}}> */}
             <SearchBar 
                 term={term} 
                 onTermChange={setTerm}
                 onTermSubmit={() => searchApi(term)}
             />
             {error ? <Text>{error}</Text> : null}
-            <Text>We have found {results.length} results</Text>
             <ScrollView>
-            <ResultsList results={filterResultsByPrice('$')} title="Cost Effective"/>
-            <ResultsList results={filterResultsByPrice('$$')} title="Bit Pricier" />
-            <ResultsList results={filterResultsByPrice('$$$')} title="Big Spender"/>
+            <ResultsList results={filterResultsByPrice('$')} title="Cost Effective" navigation={navigation}/>
+            <ResultsList results={filterResultsByPrice('$$')} title="Bit Pricier" navigation={navigation}/>
+            <ResultsList results={filterResultsByPrice('$$$')} title="Big Spender" navigation={navigation}/>
             </ScrollView>
-        </View>
+            
+        </>
+        
     )
 }
 
