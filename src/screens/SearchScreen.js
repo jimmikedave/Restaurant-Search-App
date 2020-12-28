@@ -7,7 +7,7 @@ import ResultsList from '../components/ResultsList';
 //useState(() => {}, [x]) - run the arrow function x amount of times
 //useState(() => {}, [value]) - when the value changes run the arrow function
 
-const SearchScreen = ({ navigation }) => {
+const SearchScreen = () => {
     const [term, setTerm] = useState('');
     // hook is a helper function that can be used inside other components
     // REACT IS ALL ABOUT RE-USABLE COMPONENTS
@@ -31,9 +31,9 @@ const SearchScreen = ({ navigation }) => {
             />
             {error ? <Text>{error}</Text> : null}
             <ScrollView>
-            <ResultsList results={filterResultsByPrice('$')} title="Cost Effective" navigation={navigation}/>
-            <ResultsList results={filterResultsByPrice('$$')} title="Bit Pricier" navigation={navigation}/>
-            <ResultsList results={filterResultsByPrice('$$$')} title="Big Spender" navigation={navigation}/>
+            <ResultsList results={filterResultsByPrice('$')} title="Cost Effective" />
+            <ResultsList results={filterResultsByPrice('$$')} title="Bit Pricier" />
+            <ResultsList results={filterResultsByPrice('$$$')} title="Big Spender" />
             </ScrollView>
             
         </>
